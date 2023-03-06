@@ -1,41 +1,3 @@
-<script setup lang="ts">
-import type { ChatMessage } from "@/types";
-import { ref, watch, nextTick } from "vue";
-import { chat } from "@/libs/gpt";
-
-const chatListDom = ref<HTMLDivElement>();
-const roleAlias = {
-  user: 'ME',
-  assistant: 'ChatGPT',
-};
-let messageContent = ref('');
-const messageList = ref<ChatMessage[]>([
-  { role: 'assistant', content: `你好，我是AI语言模型，我可以提供一些常用服务和信息，例如：\n\n1. 翻译：我可以把中文翻译成英文，英文翻译成中文，还有其他一些语言翻译，比如法语、日语、西班牙语等。\n\n2. 语音识别：如果你需要语音转文字，我可以帮你实现。\n\n3. 咨询服务：如果你有任何问题需要咨询，例如健康、法律、投资等方面，我可以尽可能为你提供帮助。\n\n4. 闲聊：如果你感到寂寞或无聊，我们可以聊一些有趣的话题，以减轻你的压力。\n\n请告诉我你需要哪方面的帮助，我会根据你的需求给你提供相应的信息和建议。` }
-]);
-
-async function sendChatMessage(content: string, messageList: ChatMessage[]) {
-  if (!content.length) return;
-  if (messageList.length === 1) messageList.pop(); // 移除开场白
-  messageContent.value = '';
-  messageList.push(
-    { role: 'user', content, },
-    { role: 'assistant', content: '' }
-  );
-  const { status, data, message } = await chat(messageList);
-  if (status === 'success') {
-    messageList[messageList.length - 1].content = data.content;
-  } else {
-    console.log(message);
-  }
-}
-
-// 聊天列表更新时滚动到页面底部
-watch(messageList.value, () => nextTick(() => {
-  if (!chatListDom.value) return;
-  scrollTo(0, chatListDom.value.scrollHeight);
-}))
-</script>
-
 <template>
   <div class="flex flex-col h-screen">
     <div class="flex sticky top-0 items-baseline px-6 py-4 bg-gray-100">
@@ -62,3 +24,42 @@ watch(messageList.value, () => nextTick(() => {
     </div>
   </div>
 </template>
+
+
+<script setup lang="ts">
+import type { ChatMessage } from "@/types";
+import { ref, watch, nextTick } from "vue";
+import { chat } from "@/libs/gpt";
+
+const chatListDom = ref<HTMLDivElement>();
+const roleAlias = {
+  user: 'ME',
+  assistant: 'ChatGPT',
+};
+let messageContent = ref('');
+const messageList = ref<ChatMessage[]>([
+  { role: 'assistant', content: `你好，我是AI语言模型，我可以提供一些常用服务和信息，例如：\n\n1. 翻译：我可以把中文翻译成英文，英文翻译成中文，还有其他一些语言翻译，比如法语、日语、西班牙语等。\n\n2. 语音识别：如果你需要语音转文字，我可以帮你实现。\n\n3. 咨询服务：如果你有任何问题需要咨询，例如健康、法律、投资等方面，我可以尽可能为你提供帮助。\n\n4. 闲聊：如果你感到寂寞或无聊，我们可以聊一些有趣的话题，以减轻你的压力。\n\n请告诉我你需要哪方面的帮助，我会根据你的需求给你提供相应的信息和建议。` }
+]);
+
+async function sendChatMessage(content: string, messageList: ChatMessage[]) {
+  if (!content.length) return;
+  if (messageList.length === 1) messageList.pop(); // 移除开场白
+  messageContent.value = '';
+  messageList.push(
+      { role: 'user', content, },
+      { role: 'assistant', content: '' }
+  );
+  const { status, data, message } = await chat(messageList);
+  if (status === 'success') {
+    messageList[messageList.length - 1].content = data.content;
+  } else {
+    console.log(message);
+  }
+}
+
+// 聊天列表更新时滚动到页面底部
+watch(messageList.value, () => nextTick(() => {
+  if (!chatListDom.value) return;
+  scrollTo(0, chatListDom.value.scrollHeight);
+}))
+</script>

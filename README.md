@@ -1,71 +1,28 @@
-# Next Kit - Nuxt js based Free UI Kit
-<h1>
-<a href="https://nextkit-nuxtjs-free-uikit.vercel.app/">Live Demo</a>
-</h1>
-## Build Setup
+# chatgpt-vue
+
+使用 Vue3 + Typescript + Tailwind CSS 框架，调用 OpenAI 的 `gpt-3.5-turbo` 模型 API 实现的简单聊天对话，支持连续对话。
+
+## 快速开始
+
+本项目基于 `Node.js` 运行时环境，开始前请确保电脑已经正确安装它，没有安装请 [点击这里下载](https://nodejs.org/zh-cn/)。
+
+首先，请进入项目根目录并执行以下命令以初始化项目：
 
 ```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+cp .env.example .env
+npm i
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+然后，打开 `.env` 文件，并在 `VITE_API_KEY=` 后填入您的 API key。已经注册但还没有 API Key 的用户可以 [前往这里生成](https://platform.openai.com/account/api-keys)：
 
-## Special Directories
+```ini
+VITE_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+填写完 API Key 后，运行该项目：
 
-### `assets`
+```bash
+npm run dev
+```
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+希望这能对您有所帮助。如果您还有其他问题，请随时在评论区提出，谢谢！

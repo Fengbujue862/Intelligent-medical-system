@@ -1,27 +1,23 @@
 import type { ChatMessage } from "@/types";
-import axios from "axios";
 
-const model = "gpt-3.5-turbo";
-const apiKey = import.meta.env.VITE_API_KEY;
-
-axios.defaults.headers.common["Authorization"] = `Bearer ${apiKey}`;
-axios.defaults.headers.post["Content-Type"] = "application/json";
-
-export async function chat(messageList: ChatMessage[]) {
+export async function chat(messageList: ChatMessage[], apiKey: string) {
   try {
-    const completion = await axios({
-      url: "https://api.openai.com/v1/chat/completions",
+    const result = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "post",
-      data: {
-        model,
-        messages: messageList,
+      // signal: AbortSignal.timeout(8000),
+      // 开启后到达设定时间会中断流式输出
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
       },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        stream: true,
+        messages: messageList,
+      }),
     });
-    return {
-      status: "success",
-      data: completion.data.choices[0].message,
-    };
+    return result;
   } catch (error) {
-    return { status: "error", message: error };
+    throw error;
   }
 }
